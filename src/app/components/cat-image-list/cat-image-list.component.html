@@ -1,0 +1,29 @@
+<mat-card>
+	<mat-card-content>
+		<h2>Search Results Cats</h2>
+
+		<form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+			<div class="filters">
+				<mat-form-field appearance="outline">
+					<mat-label>Filter by Breed</mat-label>
+					<mat-select formControlName="selectedBreeds" multiple>
+						<mat-option [value]="null">All Breeds</mat-option>
+						<mat-option *ngFor="let breed of breeds$ | async" [value]="breed.id">{{ breed.name }}</mat-option>
+					</mat-select>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Number of Results</mat-label>
+					<input matInput type="number" formControlName="limit" />
+				</mat-form-field>
+
+			</div>
+		</form>
+
+		<mat-grid-list [cols]="gridCols" rowHeight="250px" class="image-grid">
+			<mat-grid-tile *ngFor="let image of images$ | async">
+				<img [src]="image.url" alt="Cat Image" />
+			</mat-grid-tile>
+		</mat-grid-list>
+	</mat-card-content>
+</mat-card>
